@@ -15,25 +15,33 @@ st.header("무엇이든 물어보세요.")
 prompt = st.text_input("질문?")
 
 if st.button("실행하기"):
-    assistant = openai.Assistant.create(
-        instructions="You are a helpful assistant.",
-        model='gpt-4o'
+    assistant = client.beta.assistants.create(
+        instructions = "당신은 수학 선생님입니다",
+        model = "gpt-4-turbo",
+        tools = tools
     )
-    thread = openai.Thread.create(
-        messages=[
-            {
-                "role": "user",
-                "content": f"{prompt}"
-            }
-        ]
+    thread = client.beta.threads.create(
+      messages=[
+        {
+        "role":"user",
+        "content": "다음 이차방정식의 해를 구해줘: 15x^2 - 2x+1.2=0"
+        }
+      ]
     )
-    run = openai.Thread.create(
+    run = client.beta.threads.runs.create(
+      thread_id=thread.id,
+      assistant_id=assistant.id
+    )
+      run = client.beta.threads.runs.submit_tool_outputs(
         thread_id=thread.id,
-        assistant_id=assistant.id
-    )
-    thread_messages = openai.Message.list(thread.id, limit=1)
+        run_id=run.id,
+        tool_outputs=tool_outputs
+      )
+      run_check = wait_run(client, run, thread)
+
+    thread_messages = client.beta.threads.messages.list(thread.id, limit=1)
     for msg in thread_messages.data:
-        st.write(f"{msg.role}: {msg.content[0].text.value}")
+      print(f"{msg.role}: {msg.content[0].text.value}")
     st.markdown(f"질문: {prompt}")
 
 st.divider()
