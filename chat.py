@@ -9,7 +9,7 @@ st.header("무엇이든 물어보세요.")
 prompt = st.text_input("질문?")
 
 if st.button("실행하기"):
-      openai.api_key = "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"
+    openai.api_key = "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"
     assistant = openai.Assistant.create(
         instructions="You are a helpful assistant.",
         model='gpt-4o'
