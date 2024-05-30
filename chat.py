@@ -8,6 +8,7 @@ api = st.text_input("API Key?")
 
 if st.button("확인"):
   client = OpenAI(api_key=f"{api}")
+  st.session_state 
 
 st.divider()
 
