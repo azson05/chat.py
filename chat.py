@@ -16,15 +16,15 @@ prompt = st.text_input("질문?")
 
 if st.button("실행하기"):
     assistant = client.beta.assistants.create(
-        instructions = "당신은 수학 선생님입니다",
-        model = "gpt-4-turbo",
+        instructions = "my chatbot",
+        model = "gpt-4o",
         tools = tools
     )
     thread = client.beta.threads.create(
       messages=[
         {
         "role":"user",
-        "content": "다음 이차방정식의 해를 구해줘: 15x^2 - 2x+1.2=0"
+        "content": f"{prompt}"
         }
       ]
     )
