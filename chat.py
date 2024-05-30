@@ -12,7 +12,6 @@ if st.button("확인"):
     instructions = "You are a helpful assistant.",
     model='gpt-4o'
   )
-  )
   thread = client.beta.threads.create(
     messages=[
       {
