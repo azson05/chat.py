@@ -12,6 +12,23 @@ if st.button("확인"):
     instructions = "You are a helpful assistant.",
     model='gpt-4o'
   )
+  assistant = client.beta.assistants.create(
+      instructions = "당신은 수학 선생님입니다",
+      model = "gpt-4-turbo",
+      tools = tools
+  )
+  thread = client.beta.threads.create(
+    messages=[
+      {
+          "role":"user",
+          "content": "다음 이차방정식의 해를 구해줘: 15x^2 - 2x+1.2=0"
+      }
+    ]
+  )
+  run = client.beta.threads.runs.create(
+    thread_id=thread.id,
+    assistant_id=assistant.id
+  )
 st.divider()
 
 st.header("무엇이든 물어보세요.")
