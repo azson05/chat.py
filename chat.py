@@ -13,15 +13,14 @@ if st.button("확인"):
     model='gpt-4o'
   )
   assistant = client.beta.assistants.create(
-      instructions = "당신은 수학 선생님입니다",
+      instructions = "당신은 선생님입니다",
       model = "gpt-4-turbo",
-      tools = tools
   )
   thread = client.beta.threads.create(
     messages=[
       {
           "role":"user",
-          "content": "다음 이차방정식의 해를 구해줘: 15x^2 - 2x+1.2=0"
+          "content": "부산의 위치를 알려줘"
       }
     ]
   )
