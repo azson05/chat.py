@@ -19,6 +19,8 @@ st.header("무엇이든 물어보세요.")
 prompt = st.text_input("질문?")
 
 if st.button("실행하기"):
+  st.session_state.questions.append(question)
+    st.success('질문이 저장되었습니다!')
   thread = client.beta.threads.create(
     messages=[
       {
