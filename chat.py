@@ -8,7 +8,6 @@ api = st.text_input("API Key?")
 
 if st.button("확인"):
   client = OpenAI(api_key=f"{api}")
-  st.session_state 
 
 st.divider()
 
@@ -33,6 +32,9 @@ if st.button("실행하기"):
     thread_id=thread.id,
     assistant_id=assistant.id
   )
+  thread_messages = client.beta.threads.messages.list(thread.id, limit=1)
+  for msg in thread_messages.data:
+    print(f"{msg.role}: {msg.content[0].text.value}")
   st.markdown(f"질문: {prompt}")
 
 st.divider()
