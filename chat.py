@@ -29,7 +29,7 @@ if st.button("실행하기"):
     thread_messages = openai.Message.list(thread.id, limit=1)
     for msg in thread_messages.data:
         st.write(f"{msg.role}: {msg.content[0].text.value}")
-  st.markdown(f"질문: {prompt}")
+    st.markdown(f"질문: {prompt}")
 
 st.divider()
 
