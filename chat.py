@@ -9,27 +9,26 @@ st.header("무엇이든 물어보세요.")
 prompt = st.text_input("질문?")
 
 if st.button("실행하기"):
-  client = OpenAI(api_key="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")
-  assistant = client.beta.assistants.create(
-    instructions = "You are a helpful assistant.",
-    model='gpt-4o'
-  )
-  
-  thread = client.beta.threads.create(
-    messages=[
-      {
-          "role":"user",
-          "content": f"{prompt}"
-      }
-    ]
-  )
-  run = client.beta.threads.runs.create(
-    thread_id=thread.id,
-    assistant_id=assistant.id
-  )
-  thread_messages = client.beta.threads.messages.list(thread.id, limit=1)
-  for msg in thread_messages.data:
-    print(f"{msg.role}: {msg.content[0].text.value}")
+      openai.api_key = "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"
+    assistant = openai.Assistant.create(
+        instructions="You are a helpful assistant.",
+        model='gpt-4o'
+    )
+    thread = openai.Thread.create(
+        messages=[
+            {
+                "role": "user",
+                "content": f"{prompt}"
+            }
+        ]
+    )
+    run = openai.Thread.create(
+        thread_id=thread.id,
+        assistant_id=assistant.id
+    )
+    thread_messages = openai.Message.list(thread.id, limit=1)
+    for msg in thread_messages.data:
+        st.write(f"{msg.role}: {msg.content[0].text.value}")
   st.markdown(f"질문: {prompt}")
 
 st.divider()
