@@ -32,12 +32,12 @@ if st.button("실행하기"):
       thread_id=thread.id,
       assistant_id=assistant.id
     )
-      run = client.beta.threads.runs.submit_tool_outputs(
-        thread_id=thread.id,
-        run_id=run.id,
-        tool_outputs=tool_outputs
-      )
-      run_check = wait_run(client, run, thread)
+    run = client.beta.threads.runs.submit_tool_outputs(
+      thread_id=thread.id,
+      run_id=run.id,
+      tool_outputs=tool_outputs
+    )
+    run_check = wait_run(client, run, thread)
 
     thread_messages = client.beta.threads.messages.list(thread.id, limit=1)
     for msg in thread_messages.data:
